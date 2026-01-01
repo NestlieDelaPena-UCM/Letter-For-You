@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merry Christmas, Moo ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Crimson+Text:ital,wght@0,400;1,400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #1a0e0e 0%, #2d1414 50%, #1a0e0e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated snow */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1em;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+        
+        /* Floating hearts */
+        .heart {
+            position: fixed;
+            color: rgba(255, 100, 100, 0.5);
+            font-size: 1.5em;
+            animation: float 6s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Left side - Photo Gallery */
+        .photo-section {
+            flex: 0 0 400px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(139, 0, 0, 0.3);
+            position: sticky;
+            top: 20px;
+        }
+        
+        .photo-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: #8b0000;
+            text-align: center;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .photo-card {
+            position: relative;
+            perspective: 1000px;
+            cursor: pointer;
+            height: 180px;
+        }
+        
+        .photo-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .photo-card.flipped .photo-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .photo-front, .photo-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        
+        .photo-front {
+            background: linear-gradient(135deg, #8b0000, #c41e3a);
+            color: white;
+            font-size: 3em;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .photo-back {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.1), rgba(255, 182, 193, 0.2));
+            border: 2px solid #8b0000;
+            transform: rotateY(180deg);
+            overflow-y: auto;
+        }
+        
+        .photo-back-content {
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #333;
+            text-align: center;
+        }
+        
+        .photo-back-content strong {
+            color: #8b0000;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .hint {
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+            margin-top: 15px;
+        }
+        
+        /* Right side - Letter */
+        .letter-section {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 60px 50px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(139, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        /* Decorative corners */
+        .corner {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 3px solid #8b0000;
+        }
+        
+        .corner.top-left {
+            top: 15px;
+            left: 15px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .corner.top-right {
+            top: 15px;
+            right: 15px;
+            border-left: none;
+            border-bottom: none;
+        }
+        
+        .corner.bottom-left {
+            bottom: 15px;
+            left: 15px;
+            border-right: none;
+            border-top: none;
+        }
+        
+        .corner.bottom-right {
+            bottom: 15px;
+            right: 15px;
+            border-left: none;
+            border-top: none;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            color: #8b0000;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #555;
+            font-style: italic;
+        }
+        
+        .divider {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #8b0000, transparent);
+            margin: 30px auto;
+        }
+        
+        .letter-content {
+            font-size: 1.2em;
+            line-height: 2;
+            color: #333;
+            text-align: justify;
+            animation: fadeIn 1.5s ease-in;
+        }
+        
+        .letter-content p {
+            margin-bottom: 25px;
+            text-indent: 40px;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 50px;
+            font-style: italic;
+            animation: fadeIn 2s ease-in;
+        }
+        
+        .signature .from {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .signature .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: #8b0000;
+            font-weight: 700;
+        }
+        
+        .ps {
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.05), rgba(255, 182, 193, 0.1));
+            border-left: 4px solid #8b0000;
+            border-radius: 5px;
+            font-size: 1.05em;
+            animation: fadeIn 2.5s ease-in;
+        }
+        
+        .ps strong {
+            color: #8b0000;
+        }
+        
+        .emoji {
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .photo-section {
+                flex: 1;
+                width: 100%;
+                position: relative;
+                top: 0;
+            }
+            
+            .letter-section {
+                padding: 40px 30px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .letter-content {
+                font-size: 1.1em;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .photo-card {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative snow and hearts -->
+    <script>
+        // Create snowflakes
+        for (let i = 0; i < 30; i++) {
+            const snow = document.createElement('div');
+            snow.className = 'snowflake';
+            snow.innerHTML = '❄';
+            snow.style.left = Math.random() * 100 + '%';
+            snow.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            snow.style.animationDelay = Math.random() * 5 + 's';
+            snow.style.fontSize = (Math.random() * 0.5 + 0.5) + 'em';
+            document.body.appendChild(snow);
+        }
+        
+        // Create floating hearts
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(heart);
+        }
+    </script>
+
+    <div class="main-container">
+        <!-- Left Side - Photo Gallery -->
+        <div class="photo-section">
+            <h2>Pampautog Pics 📸</h2>
+            <div class="photo-grid">
+                <!-- Photo 1 -->
+                <div class="photo-card" onclick="this.classList.toggle('flipped')">
+                    <div class="photo-inner">
+                        <div class="photo-front">📷</div>
+                        <div class="photo-back">
+                            <div class="photo-back-content">
+                                <strong>Memory #1</strong>
+                                Remember when we first met? I knew right then you were special. This pic reminds me of that day. 💕
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Photo 2 -->
+                <div class="photo-card" onclick="this.classList.toggle('flipped')">
+                    <div class="photo-inner">
+                        <div class="photo-front">🌹</div>
+                        <div class="photo-back">
+                            <div class="photo-back-content">
+                                <strong>Challenge #1</strong>
+                                Send me a voice note saying "I love you" in the cutest way possible! 🥰
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Photo 3 -->
+                <div class="photo-card" onclick="this.classList.toggle('flipped')">
+                    <div class="photo-inner">
+                        <div class="photo-front">💌</div>
+                        <div class="photo-back">
+                            <div class="photo-back-content">
+                                <strong>Love Note</strong>
+                                Your smile is my favorite thing in the world. Don't ever stop being you, moo ko. ☺️
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Photo 4 -->
+                <div class="photo-card" onclick="this.classList.toggle('flipped')">
+                    <div class="photo-inner">
+                        <div class="photo-front">🎁</div>
+                        <div class="photo-back">
+                            <div class="photo-back-content">
+                                <strong>Promise</strong>
+                                I promise to love you through every season, every distance, every challenge. Always. 💍
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Photo 5 -->
+                <div class="photo-card" onclick="this.classList.toggle('flipped')">
+                    <div class="photo-inner">
+                        <div class="photo-front">⭐</div>
+                        <div class="photo-back">
+                            <div class="photo-back-content">
+                                <strong>Challenge #2</strong>
+                                Name 3 things you love about us! Can't wait to hear your answer. 😘
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Photo 6 -->
+                <div class="photo-card" onclick="this.classList.toggle('flipped')">
+                    <div class="photo-inner">
+                        <div class="photo-front">🎄</div>
+                        <div class="photo-back">
+                            <div class="photo-back-content">
+                                <strong>Christmas Wish</strong>
+                                My only wish this Christmas is to be with you. Soon, moo ko. Very soon. 🎅❤️
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hint">Click each card to reveal what's behind! 💝</div>
+        </div>
+        
+        <!-- Right Side - Letter -->
+        <div class="letter-section">
+            <div class="corner top-left"></div>
+            <div class="corner top-right"></div>
+            <div class="corner bottom-left"></div>
+            <div class="corner bottom-right"></div>
+            
+            <div class="header">
+                <h1>To My Dearest Moo <span class="emoji">❤️</span></h1>
+                <div class="subtitle">Merry Christmas 2024</div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="letter-content">
+                <p>Hey Moo, Merry Christmas! I know we're not together this year, but I just want you to know how much I love you. Even if we're apart, you're always on my mind, and I'm really grateful for you. I can't wait for the day we finally get to spend Christmas together (we can eat each other too, inig Christmas Eve <span class="emoji">😌</span>).</p>
+                
+                <p>Christmas feels a little incomplete without you here, but just knowing you're mine still makes it special. Distance sucks, but it doesn't change how I feel. No matter what, I choose you and I choose us—always.</p>
+                
+                <p>Thank you for loving me even when I'm hard to love. Thank you for staying, for understanding me, and for being patient through everything. You honestly have no idea how much that means to me. I don't think I deserve someone as amazing as you, but I'm so thankful that you're in my life. Loving you has changed me in ways I didn't expect, in the best way possible.</p>
+                
+                <p>I'm thinking of you so much right now. You mean so much to me, and I hope you never forget that. You're my man, my lover, my soulmate, my everything, and I love you more than I can ever explain. Just imagine this message as a hug and a kiss until we can finally be together.</p>
+            </div>
+            
+            <div class="signature">
+                <div class="from">With all my love,</div>
+                <div class="name">Your One & Only</div>
+            </div>
+            
+            <div class="ps">
+                <strong>P.S.</strong> Pinaghirapan ko 'to haa wag ka <span class="emoji">😆</span> Straight English 'yan kasi alam ko englishing ka (nagpa-help pa nga ako kasi kilala kita). I love you so much, moo ko. Since it's Christmas, here are some pampautog pics for you—every picture has something behind it <span class="emoji">😘🎄</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
